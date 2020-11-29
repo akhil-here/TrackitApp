@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
           children: [
             Image.asset(
               'assets/images/login.jpg',
-              scale: 1.0,
+              scale: 1.2,
             ),
             Text(
               "LOGIN",
@@ -171,10 +171,9 @@ class _LoginState extends State<Login> {
     if (_key.currentState.validate()) {
       _key.currentState.save();
       Authservice instance = new Authservice();
-      // dynamic val = instance.signIn(email, password);
       final val = await instance.signIn(email, password);
 
-      error = "Login Sucessful";
+      error = "Login Successful";
       print("$email $password");
       error = val;
       if (val == 'Success') {

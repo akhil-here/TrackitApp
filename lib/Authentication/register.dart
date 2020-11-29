@@ -15,7 +15,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   GlobalKey<FormState> _key = new GlobalKey();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  String email, username, password, repassword;
+  String email, username, password, error;
   bool enabled = false;
   bool check = false;
   bool _validate = false;
@@ -199,53 +199,33 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void success(String msg) {
+  _sendTOServer() async {
+    if (_key.currentState.validate()) {
+      _key.currentState.save();
+      Authservice instance = new Authservice();
+      final val = await instance.registerin(email, password, username);
+
+      error = "Registration Successful";
+      print("$username $email $password");
+      error = val;
+      if (val == 'Success') {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Login()));
+      }
+      snackbar(error);
+    } else {
+      setState(() {
+        error = "Registration Unsuccessful";
+        _validate = true;
+      });
+    }
+  }
+
+  void snackbar(String msg) {
     final snackbar = new SnackBar(
       content: new Text("$msg"),
       backgroundColor: Colors.indigo.shade900,
     );
     scaffoldKey.currentState.showSnackBar(snackbar);
-  }
-
-  String validateName(String value) {
-    String pattern = r'(^[a-z A-Z,.\-]+$)';
-    RegExp regExp = new RegExp(pattern);
-    if (value.length == 0) {
-      return "Name is required";
-    } else if (!regExp.hasMatch(value)) {
-      return "Name must be a a-z and A-Z";
-    } else {
-      return null;
-    }
-  }
-
-  String validatePassword(String value) {
-    Pattern pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regex = new RegExp(pattern);
-    print(value);
-    if (value.isEmpty) {
-      return 'Please enter password';
-    } else {
-      if (!regex.hasMatch(value))
-        return 'Enter valid password';
-      else
-        return null;
-    }
-  }
-
-  _sendTOServer() async {
-    if (_key.currentState.validate()) {
-      _key.currentState.save();
-      print("$username $email $password");
-      Authservice instance = new Authservice();
-      final val = await instance.registerin(email, password, username);
-      snackbarmsg = val;
-      success(snackbarmsg);
-    } else {
-      setState(() {
-        _validate = true;
-      });
-    }
   }
 }
