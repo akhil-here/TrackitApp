@@ -1,12 +1,10 @@
 import 'package:TrackIt/widgets/History.dart';
-import 'package:TrackIt/widgets/Logout.dart';
 import 'package:TrackIt/widgets/MainDrawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../routes/Routes.dart';
 import 'TransactionList.dart';
 import 'NewTransaction.dart';
-import 'Chart.dart';
-import '../models/transaction.dart';
 import 'package:TrackIt/Authentication/login.dart';
 
 class MyIntroPage extends StatelessWidget {
@@ -55,30 +53,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [];
-
-  List<Transaction> get _recentTransactions {
-    return _userTransactions.where((tx) {
-      return tx.date.isAfter(
-        DateTime.now().subtract(
-          Duration(days: 7),
-        ),
-      );
-    }).toList();
-  }
+  List expenses = [];
+  FirebaseFirestore databaseReference = Firestore.instance;
+  // CollectionReference databaseReference =
+  //     FirebaseFirestore.instance.collection('transactions');
 
   void _addNewTransaction(
-      String txTitle, double txAmount, DateTime chosenDate) {
-    final newTx = Transaction(
-      title: txTitle,
-      amount: txAmount,
-      date: chosenDate,
-      id: DateTime.now().toString(),
-    );
-
-    setState(() {
-      _userTransactions.add(newTx);
-    });
+      String txTitle, double txAmount, DateTime chosenDate) async {
+    List itemsList = [];
+    await databaseReference
+        .collection('transactions')
+        .doc('exp')
+        .set(
+          {
+            'title': txTitle,
+            'amount': txAmount,
+            'date': chosenDate,
+            'id': DateTime.now().toString(),
+          },
+        )
+        .then((value) => print("Expense Added"))
+        .catchError((error) => print("Failed to add expense: $error"));
   }
 
   void _startAddNewTransaction(BuildContext ctx) {
@@ -95,11 +90,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _deleteTransaction(String id) {
-    setState(() {
-      _userTransactions.retainWhere((tx) {
-        return tx.id != id;
-      });
-    });
+    try {
+      databaseReference.collection('transactions').doc('exp').delete();
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -126,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               // Chart(_recentTransactions),
-              TransactionList(_userTransactions, _deleteTransaction),
+              TransactionList(_deleteTransaction),
             ],
           ),
         ),
