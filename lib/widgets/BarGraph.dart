@@ -71,7 +71,7 @@ class SimpleBarChart extends StatelessWidget {
                       Text("Total amount spent \nover the week:",
                           style: TextStyle(
                               fontFamily: 'Quicksand', fontSize: 25.0)),
-                      Text("\n₹2000/-",
+                      Text("\n₹630/-",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Quicksand',

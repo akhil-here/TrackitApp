@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       String txTitle, double txAmount, DateTime chosenDate) async {
     await databaseReference
         .collection('transactions')
-        .doc('exp')
+        .doc('1')
         .set(
           {
             'title': txTitle,
@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _deleteTransaction(String id) {
     try {
-      databaseReference.collection('transactions').doc('exp').delete();
+      databaseReference.collection('transactions').doc('1').delete();
     } catch (e) {
       print(e.toString());
     }

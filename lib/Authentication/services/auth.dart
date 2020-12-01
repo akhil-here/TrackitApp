@@ -28,24 +28,11 @@ class Authservice {
       print(e);
       return 'Error Logging in ';
     }
-
-    // on FirebaseAuthException catch (e) {
-    // catch (e) {
-    //   if (e.code == 'user-not-found') {
-    //     print('No user found for that email.');
-    //   } else if (e.code == 'wrong-password') {
-    //     print('Wrong password provided for that user.');
-    //   }
-    // }
   }
 
   //register Email pass
   Future registerin(String email, String password, String username) async {
     try {
-      // AuthResult result = await _auth.createUserWithEmailAndPassword(
-      //     email: email, password: password);
-      // final User user = result.user;
-
       final User user = (await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -69,16 +56,6 @@ class Authservice {
       print(e);
       return 'Error Logging in ';
     }
-    // {
-    //   if (e.message == 'weak-password') {
-    //     print('The password provided is too weak.');
-    //   } else if (e.code == 'email-already-in-use') {
-    //     print('The account already exists for that email.');
-    //   }
-    // }
-    //  catch (e) {
-    //   print(e);
-    // }
   }
   //sign out
 }

@@ -92,11 +92,11 @@ class _RegisterState extends State<Register> {
                 ),
               ),
               keyboardType: TextInputType.text,
-              validator: (value) {
-                if (value.length < 2) {
-                  return 'Username not long enough';
-                }
-              },
+              // validator: (value) {
+              //   if (value.length < 2) {
+              //     return 'Username not long enough';
+              //   }
+              // },
               onSaved: (String value) {
                 username = value;
               }),

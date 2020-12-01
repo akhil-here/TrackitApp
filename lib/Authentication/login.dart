@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:TrackIt/Authentication/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 
 class Login extends StatefulWidget {
   static const String routeName = '/logout';
@@ -30,13 +29,13 @@ class _LoginState extends State<Login> {
           children: [
             Image.asset(
               'assets/images/login.jpg',
-              scale: 1.2,
+              scale: 1.4,
             ),
             Text(
               "LOGIN",
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 40.0,
+                fontSize: 34.0,
                 fontFamily: 'Bangers-Regular',
                 fontWeight: FontWeight.w700,
                 letterSpacing: 2.0,
@@ -81,7 +80,7 @@ class _LoginState extends State<Login> {
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
+                                horizontal: 16, vertical: 7),
                             child: TextFormField(
                                 cursorHeight: 20.0,
                                 obscureText: !_passwordVisible,
