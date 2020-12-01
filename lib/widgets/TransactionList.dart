@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../models/transaction.dart';
-
 class TransactionList extends StatelessWidget {
   // final List<Transaction> transactions;
   final Function deletetx;

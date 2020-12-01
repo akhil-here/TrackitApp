@@ -55,12 +55,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List expenses = [];
   FirebaseFirestore databaseReference = Firestore.instance;
-  // CollectionReference databaseReference =
-  //     FirebaseFirestore.instance.collection('transactions');
 
   void _addNewTransaction(
       String txTitle, double txAmount, DateTime chosenDate) async {
-    List itemsList = [];
     await databaseReference
         .collection('transactions')
         .doc('exp')
