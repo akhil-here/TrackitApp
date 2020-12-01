@@ -53,15 +53,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List expenses = [];
   FirebaseFirestore databaseReference = Firestore.instance;
 
   void _addNewTransaction(
       String txTitle, double txAmount, DateTime chosenDate) async {
     await databaseReference
         .collection('transactions')
-        .doc('1')
-        .set(
+        .doc('expense')
+        .setData(
           {
             'title': txTitle,
             'amount': txAmount,
@@ -88,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _deleteTransaction(String id) {
     try {
-      databaseReference.collection('transactions').doc('1').delete();
+      databaseReference.collection('transactions').doc('expense').delete();
     } catch (e) {
       print(e.toString());
     }

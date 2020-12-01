@@ -1,9 +1,7 @@
-import 'package:TrackIt/widgets/Homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:TrackIt/Authentication/login.dart';
 import 'package:TrackIt/Authentication/register.dart';
 
 class PageIntro extends StatelessWidget {
